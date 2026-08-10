@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Megroove — 淹れた一杯を、レコードのように。</title>
+<meta name="description" content="毎日のコーヒーを記録して味を追いかけるアプリ、Megroove。前回値から3ステップで記録、たまるほど楽しい分析。登録不要・端末内で完結・無料。">
+<meta name="theme-color" content="#140a05">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Megroove — 淹れた一杯を、レコードのように。">
+<meta property="og:description" content="毎日のコーヒーを記録して、美味しかったあの一杯を、もう一度。登録不要・端末内で完結・無料。">
+<meta name="twitter:card" content="summary_large_image">
+<style>html,body{background:#140a05;margin:0}</style>
+</head>
+<body>
+<style>
+  :root{
+    color-scheme: dark;
+    --bg:#140a05; --bg2:#1c110a; --panel:#241610; --panel2:#2E2018;
+    --line:#43331f; --ink:#F7EFE6; --tan:#CE9C68; --muted:#a3866a; --faint:#6f5a45;
+    --coral:#C24A20; --coral-deep:#993C1D; --glow:#3a1d0c;
+    --serif:"Hiragino Mincho ProN","Yu Mincho","YuMincho","Songti SC",serif;
+    --sans:system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:var(--bg);}
+  .lp{
+    background:
+      radial-gradient(900px 520px at 78% -60px, #3a1d0c 0%, rgba(58,29,12,0) 62%),
+      radial-gradient(700px 500px at 0% 40%, #22140b 0%, rgba(34,20,11,0) 55%),
+      var(--bg);
+    color:var(--ink); font-family:var(--sans); line-height:1.85; font-size:16px;
+    -webkit-font-smoothing:antialiased; letter-spacing:.01em; overflow-x:hidden;
+  }
+  .wrap{max-width:1040px; margin:0 auto; padding:0 24px;}
+  a{color:var(--tan); text-underline-offset:3px;}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--tan); outline-offset:3px; border-radius:8px;}
+  .eyebrow{font-size:12px; letter-spacing:.36em; text-transform:uppercase; color:var(--coral); margin:0;}
+
+  /* ── nav ── */
+  nav{position:sticky; top:0; z-index:20; backdrop-filter:blur(8px);
+     background:linear-gradient(180deg, rgba(20,10,5,.86), rgba(20,10,5,.4)); border-bottom:1px solid transparent; transition:border-color .3s;}
+  nav.scrolled{border-bottom:1px solid var(--line);}
+  .nav-in{display:flex; align-items:center; justify-content:space-between; height:62px;}
+  .brand{display:flex; align-items:center; gap:11px; font-weight:600; letter-spacing:.02em; font-size:17px; color:var(--ink); text-decoration:none;}
+  .btn{display:inline-flex; align-items:center; gap:8px; border-radius:999px; font-weight:600; text-decoration:none; transition:transform .08s ease, opacity .2s;}
+  .btn:active{transform:scale(.97);}
+  .btn-primary{background:var(--coral); color:#fff; padding:11px 20px; font-size:14.5px; box-shadow:0 6px 24px -8px #c24a2088;}
+  .btn-primary:hover{background:#d0511f;}
+  .btn-ghost{color:var(--tan); padding:11px 16px; font-size:14.5px; border:1px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--tan);}
+  .btn-lg{padding:15px 30px; font-size:16px;}
+
+  /* ── hero ── */
+  .hero{position:relative; padding:60px 0 40px;}
+  .hero-grid{display:grid; grid-template-columns:1fr; gap:34px; align-items:center;}
+  @media(min-width:860px){ .hero-grid{grid-template-columns:1.05fr .95fr; gap:40px; padding:26px 0 20px;} }
+  .hero h1{font-family:var(--serif); font-weight:600; font-size:clamp(34px,7.4vw,64px); line-height:1.16; letter-spacing:.02em; margin:18px 0 0; text-wrap:balance;}
+  .hero h1 .accent{color:var(--tan);}
+  .hero .sub{color:var(--tan); font-size:clamp(15px,2.4vw,18.5px); max-width:34ch; margin:20px 0 0; text-wrap:balance;}
+  .hero .cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:30px;}
+  .hero .fine{color:var(--faint); font-size:12.5px; letter-spacing:.05em; margin-top:18px;}
+  .disc-stage{position:relative; display:grid; place-items:center; min-height:300px;}
+  .disc-stage::before{content:""; position:absolute; width:min(84vw,440px); aspect-ratio:1; border-radius:50%;
+     background:radial-gradient(circle, #5a2c11 0%, rgba(90,44,17,0) 66%); filter:blur(6px);}
+  .disc{width:min(78vw,400px); height:auto; position:relative; filter:drop-shadow(0 30px 60px #00000070);}
+  .tonearm{position:absolute; top:-2%; right:2%; width:44%; height:auto; transform-origin:88% 12%; transform:rotate(-6deg);}
+
+  /* ── generic section ── */
+  section{padding:64px 0; border-top:1px solid var(--line);}
+  .center{text-align:center;}
+  h2.big{font-family:var(--serif); font-weight:600; font-size:clamp(25px,5vw,42px); line-height:1.25; margin:14px 0 0; text-wrap:balance; letter-spacing:.01em;}
+  h2.big .accent{color:var(--tan);}
+  .lead{color:var(--tan); max-width:56ch; margin:20px auto 0; font-size:clamp(15px,2.2vw,17.5px);}
+
+  /* ── concept ── */
+  .concept{position:relative;}
+  .concept .quote{font-family:var(--serif); font-size:clamp(22px,4.4vw,36px); line-height:1.5; text-wrap:balance; max-width:20ch; margin:0 auto;}
+
+  /* ── tracklist (3 steps) ── */
+  .side-label{display:flex; align-items:center; gap:14px; color:var(--coral); font-size:12px; letter-spacing:.28em; text-transform:uppercase; justify-content:center;}
+  .side-label::before,.side-label::after{content:""; height:1px; width:44px; background:repeating-linear-gradient(90deg,var(--line) 0 5px,transparent 5px 10px);}
+  .tracks{max-width:720px; margin:34px auto 0; display:grid; gap:2px;}
+  .track{display:grid; grid-template-columns:auto 1fr; gap:20px; align-items:baseline; padding:22px 8px; border-bottom:1px solid var(--line);}
+  .track:last-child{border-bottom:0;}
+  .track .no{font-family:var(--serif); font-variant-numeric:tabular-nums; color:var(--coral); font-size:clamp(22px,4vw,30px); line-height:1;}
+  .track h3{margin:0; font-size:clamp(17px,2.6vw,21px); font-weight:600; letter-spacing:.01em;}
+  .track p{margin:7px 0 0; color:var(--tan); font-size:14.5px;}
+
+  /* ── collection (side B) feature cards ── */
+  .cards{display:grid; grid-template-columns:1fr; gap:16px; margin-top:36px;}
+  @media(min-width:640px){ .cards{grid-template-columns:1fr 1fr;} }
+  @media(min-width:940px){ .cards{grid-template-columns:1fr 1fr 1fr;} }
+  .card{background:linear-gradient(180deg,var(--panel) 0%, #1e120a 100%); border:1px solid var(--line); border-radius:18px; padding:22px; display:flex; flex-direction:column; gap:12px;}
+  .card .vis{height:76px; display:grid; place-items:center;}
+  .card h3{margin:0; font-size:16.5px; font-weight:700;}
+  .card p{margin:0; color:var(--tan); font-size:13.6px; line-height:1.7;}
+
+  /* ── values strip ── */
+  .values{display:grid; grid-template-columns:1fr; gap:12px; max-width:760px; margin:30px auto 0;}
+  @media(min-width:620px){ .values{grid-template-columns:1fr 1fr;} }
+  .val{display:flex; gap:13px; align-items:flex-start; background:#20130b; border:1px solid var(--line); border-radius:14px; padding:16px 18px;}
+  .val svg{flex:none; margin-top:2px; color:var(--coral);}
+  .val b{display:block; font-size:14.5px; margin-bottom:2px;}
+  .val span{color:var(--tan); font-size:13px; line-height:1.6;}
+
+  /* ── final cta ── */
+  .final{position:relative; text-align:center; border-top:1px solid var(--line); padding:76px 0 64px; background:radial-gradient(700px 380px at 50% 120%, #3a1d0c 0%, rgba(58,29,12,0) 60%);}
+  .final h2{font-family:var(--serif); font-weight:600; font-size:clamp(26px,5.4vw,44px); margin:0 0 8px; text-wrap:balance;}
+  .final p{color:var(--tan); margin:0 auto 28px; max-width:40ch;}
+
+  footer{border-top:1px solid var(--line); padding:30px 0 54px; color:var(--faint); font-size:13px;}
+  .foot-in{display:flex; flex-wrap:wrap; gap:18px 26px; align-items:center; justify-content:space-between;}
+  .foot-links{display:flex; flex-wrap:wrap; gap:18px;}
+  .foot-links a{color:var(--tan); text-decoration:none;}
+  .foot-links a:hover{text-decoration:underline;}
+
+  /* reveal */
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media(prefers-reduced-motion:reduce){ .reveal{opacity:1 !important; transform:none !important; transition:none;} .spin{animation:none !important;} }
+  @media(prefers-reduced-motion:no-preference){ .spin{transform-box:fill-box; transform-origin:center; animation:rot 18s linear infinite;} }
+  @keyframes rot{to{transform:rotate(360deg);}}
+</style>
+
+<div class="lp">
+  <nav id="nav">
+    <div class="wrap nav-in">
+      <a class="brand" href="#top">
+        <svg width="26" height="26" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="57" fill="#1a0d05"/><circle cx="60" cy="60" r="46" fill="none" stroke="#3a2411" stroke-width="3"/><circle cx="60" cy="60" r="34" fill="none" stroke="#3a2411" stroke-width="3"/><circle cx="60" cy="60" r="22" fill="#993C1D"/><circle cx="60" cy="60" r="4" fill="#0d0502"/></svg>
+        Megroove
+      </a>
+      <a class="btn btn-primary" href="https://megroove.github.io/megroove-web/" target="_blank" rel="noopener">無料で使ってみる</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Coffee × Records</p>
+        <h1>淹れた一杯を、<br><span class="accent">レコード</span>のように。</h1>
+        <p class="sub">毎日のコーヒーを記録して、味を追いかけるアプリ。美味しかったあの一杯を、もう一度淹れられる。</p>
+        <div class="cta">
+          <a class="btn btn-primary btn-lg" href="https://megroove.github.io/megroove-web/" target="_blank" rel="noopener">無料ではじめる</a>
+          <a class="btn btn-ghost btn-lg" href="https://megroove.github.io/megroove-legal/manual/" target="_blank" rel="noopener">使い方を見る</a>
+        </div>
+        <p class="fine">登録不要 ・ 端末内で完結 ・ 広告なし</p>
+      </div>
+      <div class="disc-stage" aria-hidden="true">
+        <svg class="disc" viewBox="0 0 120 120">
+          <g class="spin">
+            <circle cx="60" cy="60" r="58" fill="#160c05"/>
+            <circle cx="60" cy="60" r="58" fill="none" stroke="#4a2f16" stroke-width=".5"/>
+            <g fill="none" stroke="#33200f" stroke-width="1.1">
+              <circle cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="48"/><circle cx="60" cy="60" r="44"/><circle cx="60" cy="60" r="40"/><circle cx="60" cy="60" r="36"/><circle cx="60" cy="60" r="32"/><circle cx="60" cy="60" r="28"/>
+            </g>
+            <circle cx="60" cy="60" r="22" fill="#993C1D"/>
+            <circle cx="60" cy="60" r="22" fill="none" stroke="#00000055" stroke-width="1"/>
+            <text x="60" y="57" text-anchor="middle" fill="#F7EFE6" font-size="9" font-family="Georgia,serif" font-weight="bold" letter-spacing=".5">M</text>
+            <text x="60" y="69" text-anchor="middle" fill="#F7EFE6" font-size="4" opacity=".8" letter-spacing="1">MEGROOVE</text>
+            <circle cx="60" cy="60" r="3.2" fill="#0d0502"/>
+            <circle cx="49" cy="42" r="1.1" fill="#ffffff10"/>
+          </g>
+        </svg>
+        <svg class="tonearm" viewBox="0 0 64 88"><circle cx="52" cy="12" r="9" fill="#2E2018" stroke="#CE9C68" stroke-width="1.3"/><circle cx="52" cy="12" r="3" fill="#CE9C68"/><line x1="52" y1="12" x2="24" y2="60" stroke="#CE9C68" stroke-width="2.4" stroke-linecap="round"/><line x1="24" y1="60" x2="16" y2="74" stroke="#CE9C68" stroke-width="4.2" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <section class="concept center">
+    <div class="wrap">
+      <p class="eyebrow reveal">Concept</p>
+      <p class="quote reveal" style="margin-top:18px">「美味しかった」を、<span style="color:var(--tan)">もう一度</span>。</p>
+      <p class="lead reveal">コーヒーは、豆・挽き目・湯温・時間——ほんの少しの違いで味が変わります。Megroove は、その一杯の条件と評価を軽やかに記録し、あなただけの“淹れ方の知見”を育てます。数値をいじる作業ではなく、つまみを回し、盤に針を落とすような感覚で。</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap center">
+      <p class="side-label reveal">Side A — はじめの一杯</p>
+      <h2 class="big reveal" style="margin-top:16px">記録は、たった3ステップ。</h2>
+      <p class="lead reveal">開いた瞬間に前回値で埋まっているから、変えたところだけ直せば完成。最小入力で、毎日つづく。</p>
+    </div>
+    <div class="wrap">
+      <div class="tracks">
+        <div class="track reveal"><div class="no">01</div><div><h3>開くと、前回の一杯がそのまま</h3><p>「淹れる」を押すと、豆もレシピも前回の値で入力済み。ゼロから打ち込む必要はありません。</p></div></div>
+        <div class="track reveal"><div class="no">02</div><div><h3>変えたところだけ、直す</h3><p>粉量や湯量を動かせば比率（1:16 など）が自動計算。挽き目・湯温もその場で。</p></div></div>
+        <div class="track reveal"><div class="no">03</div><div><h3>星をつけて、保存</h3><p>評価とフレーバーで完了。味は飲んでから——後から“針を落とす”ように評価を足すこともできます。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap center">
+      <p class="side-label reveal">Side B — コレクションが育つ</p>
+      <h2 class="big reveal" style="margin-top:16px">一杯ずつが、<span class="accent">あなたのコレクション</span>に。</h2>
+      <p class="lead reveal">記録が積み重なるほど、Megroove はあなたの好みを映し出します。集めるほどに楽しい、レコード棚のように。</p>
+    </div>
+    <div class="wrap">
+      <div class="cards">
+        <div class="card reveal">
+          <div class="vis" aria-hidden="true">
+            <svg width="88" height="76" viewBox="0 0 100 90"><polygon points="50,10 86,32 72,76 28,76 14,32" fill="none" stroke="#43331f" stroke-width="1.2"/><polygon points="50,28 72,40 64,66 36,66 28,40" fill="none" stroke="#43331f" stroke-width="1.2"/><polygon points="50,16 80,54 44,70 24,42 58,50" fill="#C24A2033" stroke="#C24A20" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>好みのレーダー</h3>
+          <p>高評価の一杯ほど強く反映した、あなたの味の傾向。酸味・甘み・苦味・ボディ・後味で可視化。</p>
+        </div>
+        <div class="card reveal">
+          <div class="vis" aria-hidden="true">
+            <svg width="88" height="76" viewBox="0 0 100 90"><rect x="18" y="20" width="64" height="50" rx="6" fill="none" stroke="#43331f" stroke-width="1.2"/><path d="M24 58 L40 46 L52 52 L66 34 L76 40" fill="none" stroke="#C24A20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="66" cy="34" r="3.2" fill="#CE9C68"/></svg>
+          </div>
+          <h3>飲み頃とゴールデンレシピ</h3>
+          <p>「あなたの高評価は焙煎後7〜14日」——蓄積から導く、再現のための指針。ワンタップで淹れ直し。</p>
+        </div>
+        <div class="card reveal">
+          <div class="vis" aria-hidden="true">
+            <svg width="88" height="76" viewBox="0 0 100 90"><circle cx="34" cy="45" r="22" fill="#160c05" stroke="#43331f" stroke-width="1.2"/><circle cx="34" cy="45" r="14" fill="none" stroke="#43331f"/><circle cx="34" cy="45" r="8" fill="#993C1D"/><circle cx="34" cy="45" r="1.6" fill="#0d0502"/><rect x="60" y="26" width="26" height="38" rx="3" fill="none" stroke="#43331f" stroke-width="1.2"/><line x1="66" y1="34" x2="80" y2="34" stroke="#43331f"/><line x1="66" y1="42" x2="80" y2="42" stroke="#43331f"/><line x1="66" y1="50" x2="74" y2="50" stroke="#CE9C68"/></svg>
+          </div>
+          <h3>レコード棚のようなライブラリ</h3>
+          <p>リスト・写真カード・アナログ盤の3表示。撮った一杯が、ジャケットのように並びます。</p>
+        </div>
+        <div class="card reveal">
+          <div class="vis" aria-hidden="true">
+            <svg width="88" height="76" viewBox="0 0 100 90"><circle cx="34" cy="40" r="16" fill="none" stroke="#C24A20" stroke-width="1.6"/><path d="M34 24 A16 16 0 0 1 34 56" fill="none" stroke="#43331f" stroke-width="1.6"/><circle cx="68" cy="52" r="12" fill="none" stroke="#43331f" stroke-width="1.6"/><path d="M68 40 A12 12 0 0 1 78 58" fill="none" stroke="#CE9C68" stroke-width="1.6"/><text x="34" y="44" text-anchor="middle" fill="#CE9C68" font-size="11" font-family="Georgia,serif">✓</text></svg>
+          </div>
+          <h3>産地パスポート</h3>
+          <p>飲んだ産地にスタンプが増えていく。次はどこの豆にしよう——収集する楽しみ。</p>
+        </div>
+        <div class="card reveal">
+          <div class="vis" aria-hidden="true">
+            <svg width="88" height="76" viewBox="0 0 100 90"><rect x="24" y="52" width="12" height="20" rx="2" fill="#43331f"/><rect x="44" y="38" width="12" height="34" rx="2" fill="#C24A20"/><rect x="64" y="46" width="12" height="26" rx="2" fill="#43331f"/><path d="M18 30 h64" stroke="#43331f" stroke-dasharray="3 3"/></svg>
+          </div>
+          <h3>トレンドとランキング</h3>
+          <p>月ごとの杯数と平均評価、今月・今年のベスト。積み重ねが数字になって返ってくる。</p>
+        </div>
+        <div class="card reveal">
+          <div class="vis" aria-hidden="true">
+            <svg width="88" height="76" viewBox="0 0 100 90"><circle cx="50" cy="45" r="26" fill="none" stroke="#43331f" stroke-width="1.2"/><text x="50" y="40" text-anchor="middle" fill="#F7EFE6" font-size="15" font-family="system-ui,sans-serif" font-weight="700">128</text><text x="50" y="56" text-anchor="middle" fill="#CE9C68" font-size="7" letter-spacing="1">CUPS</text></svg>
+          </div>
+          <h3>累計の記録</h3>
+          <p>これまでの総杯数、豆の消費量、めぐった産地の数。あなたのコーヒー人生が形になる。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap center">
+      <p class="eyebrow reveal">Made with care</p>
+      <h2 class="big reveal" style="margin-top:14px">こだわりも、手軽さも。</h2>
+      <div class="values">
+        <div class="val reveal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 3v18M15 3v18"/></svg><div><b>記録画面は自分仕様に</b><span>項目の並び順やメイン/詳細/非表示を自由にカスタマイズ。写真も残せます。</span></div></div>
+        <div class="val reveal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3 5.5 13H11l-1 8.5L17.5 11H12z"/></svg><div><b>カフェインと睡眠</b><span>体内の残留量や就寝時の予測。付き合い方を自分で決める材料に（数値は目安）。</span></div></div>
+        <div class="val reveal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 14h4"/></svg><div><b>お店の一杯も</b><span>カフェで飲んだドリンクも同じ手軽さで記録。チェーン名は候補から選ぶだけ。</span></div></div>
+        <div class="val reveal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg><div><b>あなたのデータは、あなたのもの</b><span>すべて端末内に保存。サーバーへ送りません。JSONバックアップはずっと無料。</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="final">
+    <div class="wrap">
+      <svg width="72" height="72" viewBox="0 0 120 120" style="margin-bottom:18px" aria-hidden="true"><g class="spin"><circle cx="60" cy="60" r="57" fill="#1a0d05"/><circle cx="60" cy="60" r="48" fill="none" stroke="#3a2411" stroke-width="1.4"/><circle cx="60" cy="60" r="40" fill="none" stroke="#3a2411" stroke-width="1.4"/><circle cx="60" cy="60" r="32" fill="none" stroke="#3a2411" stroke-width="1.4"/><circle cx="60" cy="60" r="22" fill="#993C1D"/><circle cx="60" cy="60" r="3.4" fill="#0d0502"/></g></svg>
+      <h2>今日の一杯から、はじめよう。</h2>
+      <p>インストール不要。ブラウザで開いて、最初の一杯を記録するだけ。</p>
+      <a class="btn btn-primary btn-lg" href="https://megroove.github.io/megroove-web/" target="_blank" rel="noopener">無料で使ってみる</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap foot-in">
+      <span>© Megroove — コーヒーとレコードの記録アプリ</span>
+      <div class="foot-links">
+        <a href="https://megroove.github.io/megroove-web/" target="_blank" rel="noopener">アプリを開く</a>
+        <a href="https://megroove.github.io/megroove-legal/manual/" target="_blank" rel="noopener">使い方</a>
+        <a href="https://megroove.github.io/megroove-legal/" target="_blank" rel="noopener">プライバシー</a>
+        <a href="mailto:megroove.app@gmail.com">お問い合わせ</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  (function(){
+    var nav = document.getElementById('nav');
+    var onScroll = function(){ if(nav) nav.classList.toggle('scrolled', window.scrollY > 8); };
+    window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+    if(reduce || !('IntersectionObserver' in window)){ items.forEach(function(el){ el.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:.12});
+    items.forEach(function(el){ io.observe(el); });
+  })();
+</script>
+</body>
+</html>
